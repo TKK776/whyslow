@@ -1,0 +1,17 @@
+[
+  {
+    "Plan": {
+      "Node Type": "Index Scan",
+      "Relation Name": "users",
+      "Index Name": "users_email_key",
+      "Actual Total Time": 0.042,
+      "Actual Rows": 1,
+      "Plan Rows": 1,
+      "Actual Loops": 1,
+      "Index Cond": "(email = 'a@example.com'::text)",
+      "Shared Hit Blocks": 4
+    },
+    "Planning Time": 0.088,
+    "Execution Time": 0.061
+  }
+]

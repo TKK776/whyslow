@@ -1,0 +1,40 @@
+[
+  {
+    "Plan": {
+      "Node Type": "Nested Loop",
+      "Join Type": "Inner",
+      "Actual Total Time": 1842.330,
+      "Actual Rows": 48219,
+      "Plan Rows": 220,
+      "Actual Loops": 1,
+      "Plans": [
+        {
+          "Node Type": "Seq Scan",
+          "Parent Relationship": "Outer",
+          "Relation Name": "sessions",
+          "Alias": "s",
+          "Actual Total Time": 42.110,
+          "Actual Rows": 48219,
+          "Plan Rows": 220,
+          "Actual Loops": 1,
+          "Shared Hit Blocks": 1820
+        },
+        {
+          "Node Type": "Index Scan",
+          "Parent Relationship": "Inner",
+          "Relation Name": "events",
+          "Alias": "e",
+          "Index Name": "events_session_id_idx",
+          "Actual Total Time": 0.031,
+          "Actual Rows": 1,
+          "Plan Rows": 1,
+          "Actual Loops": 48219,
+          "Index Cond": "(session_id = s.id)",
+          "Shared Hit Blocks": 194302
+        }
+      ]
+    },
+    "Planning Time": 0.311,
+    "Execution Time": 1851.002
+  }
+]

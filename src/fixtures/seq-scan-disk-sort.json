@@ -1,0 +1,80 @@
+[
+  {
+    "Plan": {
+      "Node Type": "Sort",
+      "Parallel Aware": false,
+      "Startup Cost": 284531.12,
+      "Total Cost": 285581.12,
+      "Plan Rows": 420000,
+      "Plan Width": 84,
+      "Actual Startup Time": 3102.441,
+      "Actual Total Time": 3180.882,
+      "Actual Rows": 412338,
+      "Actual Loops": 1,
+      "Sort Key": ["o.placed_at DESC"],
+      "Sort Method": "external merge",
+      "Sort Space Used": 41216,
+      "Sort Space Type": "Disk",
+      "Plans": [
+        {
+          "Node Type": "Hash Join",
+          "Parent Relationship": "Outer",
+          "Join Type": "Inner",
+          "Startup Cost": 1843.00,
+          "Total Cost": 231204.55,
+          "Plan Rows": 420000,
+          "Actual Total Time": 2980.113,
+          "Actual Rows": 412338,
+          "Actual Loops": 1,
+          "Hash Cond": "(o.customer_id = c.id)",
+          "Hash Batches": 1,
+          "Hash Buckets": 65536,
+          "Plans": [
+            {
+              "Node Type": "Seq Scan",
+              "Parent Relationship": "Outer",
+              "Relation Name": "orders",
+              "Alias": "o",
+              "Startup Cost": 0.00,
+              "Total Cost": 198430.00,
+              "Plan Rows": 21000,
+              "Actual Total Time": 2402.554,
+              "Actual Rows": 412338,
+              "Actual Loops": 1,
+              "Filter": "((status = 'shipped'::text) AND (placed_at > '2026-01-01'::date))",
+              "Rows Removed by Filter": 3811662,
+              "Shared Hit Blocks": 2140,
+              "Shared Read Blocks": 68420
+            },
+            {
+              "Node Type": "Hash",
+              "Parent Relationship": "Inner",
+              "Actual Total Time": 561.020,
+              "Actual Rows": 50000,
+              "Plan Rows": 50000,
+              "Actual Loops": 1,
+              "Hash Batches": 1,
+              "Peak Memory Usage": 4096,
+              "Plans": [
+                {
+                  "Node Type": "Seq Scan",
+                  "Parent Relationship": "Outer",
+                  "Relation Name": "customers",
+                  "Alias": "c",
+                  "Actual Total Time": 540.774,
+                  "Actual Rows": 50000,
+                  "Plan Rows": 50000,
+                  "Actual Loops": 1,
+                  "Shared Hit Blocks": 8110,
+                  "Shared Read Blocks": 12
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "Planning Time": 0.842,
+    "Execution Time": 3211.440
+  }
+]

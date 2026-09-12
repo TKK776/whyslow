@@ -1,0 +1,29 @@
+name: A pattern worth detecting
+description: Suggest a new diagnostic rule
+labels: [rule, needs-triage]
+body:
+  - type: textarea
+    id: pattern
+    attributes:
+      label: What the pattern looks like in a plan
+      description: Which node type, which fields, and what thresholds make it a problem.
+    validations:
+      required: true
+
+  - type: textarea
+    id: advice
+    attributes:
+      label: What the fix is
+      description: >
+        The rule has to end in something the reader can go and do. If the honest
+        answer is "it depends", say what it depends on.
+    validations:
+      required: true
+
+  - type: textarea
+    id: plan
+    attributes:
+      label: A plan showing it, if you have one
+      render: json
+    validations:
+      required: false

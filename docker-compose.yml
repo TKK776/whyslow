@@ -1,0 +1,27 @@
+# Only needed for regenerating the fixture corpus. The app itself has no
+# backend and never touches a database.
+#
+#   PGVERSION=16 docker compose up -d
+#   npm run fixtures:generate
+#   docker compose down -v
+
+services:
+  postgres:
+    image: postgres:${PGVERSION:-16}
+    environment:
+      POSTGRES_USER: whyslow
+      POSTGRES_PASSWORD: whyslow
+      POSTGRES_DB: whyslow
+    ports:
+      - '54329:5432'
+    command:
+      - postgres
+      - -c
+      - track_io_timing=on
+      - -c
+      - shared_buffers=128MB
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U whyslow']
+      interval: 2s
+      timeout: 3s
+      retries: 15

@@ -1,0 +1,54 @@
+[
+  {
+    "Plan": {
+      "Node Type": "Hash Join",
+      "Join Type": "Inner",
+      "Actual Total Time": 4820.114,
+      "Actual Rows": 2004112,
+      "Plan Rows": 2000000,
+      "Actual Loops": 1,
+      "Hash Cond": "(a.user_id = b.id)",
+      "Plans": [
+        {
+          "Node Type": "Seq Scan",
+          "Parent Relationship": "Outer",
+          "Relation Name": "activity",
+          "Alias": "a",
+          "Actual Total Time": 1204.882,
+          "Actual Rows": 2004112,
+          "Plan Rows": 2000000,
+          "Actual Loops": 1,
+          "Shared Hit Blocks": 88220
+        },
+        {
+          "Node Type": "Hash",
+          "Parent Relationship": "Inner",
+          "Actual Total Time": 2210.004,
+          "Actual Rows": 4000000,
+          "Plan Rows": 4000000,
+          "Actual Loops": 1,
+          "Hash Batches": 16,
+          "Original Hash Batches": 1,
+          "Hash Buckets": 65536,
+          "Peak Memory Usage": 4194,
+          "Temp Written Blocks": 42110,
+          "Plans": [
+            {
+              "Node Type": "Seq Scan",
+              "Parent Relationship": "Outer",
+              "Relation Name": "users",
+              "Alias": "b",
+              "Actual Total Time": 810.114,
+              "Actual Rows": 4000000,
+              "Plan Rows": 4000000,
+              "Actual Loops": 1,
+              "Shared Hit Blocks": 120440
+            }
+          ]
+        }
+      ]
+    },
+    "Planning Time": 0.994,
+    "Execution Time": 4901.220
+  }
+]

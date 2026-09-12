@@ -1,0 +1,710 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`fixture corpus > bare-object-root.json > parses to a stable shape 1`] = `
+[
+  {
+    "actualRows": 12,
+    "childCount": 0,
+    "depth": 0,
+    "estimateFactor": 1,
+    "exclusiveMs": 0.114,
+    "id": 0,
+    "inclusiveMs": 0.114,
+    "label": "Seq Scan",
+    "loops": 1,
+    "plannedRows": 12,
+    "relationship": null,
+    "target": "on tiny_lookup",
+    "timed": true,
+  },
+]
+`;
+
+exports[`fixture corpus > bare-object-root.json > produces stable findings 1`] = `[]`;
+
+exports[`fixture corpus > bitmap-lossy.json > parses to a stable shape 1`] = `
+[
+  {
+    "actualRows": 812004,
+    "childCount": 1,
+    "depth": 0,
+    "estimateFactor": 1.015,
+    "exclusiveMs": 1332.662,
+    "id": 0,
+    "inclusiveMs": 1420.882,
+    "label": "Bitmap Heap Scan",
+    "loops": 1,
+    "plannedRows": 800000,
+    "relationship": null,
+    "target": "on measurements",
+    "timed": true,
+  },
+  {
+    "actualRows": 812004,
+    "childCount": 0,
+    "depth": 1,
+    "estimateFactor": 1.015,
+    "exclusiveMs": 88.22,
+    "id": 1,
+    "inclusiveMs": 88.22,
+    "label": "Bitmap Index Scan",
+    "loops": 1,
+    "plannedRows": 800000,
+    "relationship": "Outer",
+    "target": "using measurements_sensor_id_idx",
+    "timed": true,
+  },
+]
+`;
+
+exports[`fixture corpus > bitmap-lossy.json > produces stable findings 1`] = `
+[
+  {
+    "body": "48k blocks were tracked at page level rather than row level (against 1.2k exact), because the bitmap outgrew work_mem. Postgres then had to recheck every row on those pages. Raising work_mem keeps the bitmap exact and removes the recheck.",
+    "node": 0,
+    "rule": "bitmap-lossy",
+    "severity": "medium",
+    "title": "Bitmap scan went lossy",
+  },
+  {
+    "body": "Fetched 44k blocks (344 MB) from disk against 8.2k from shared_buffers. This data is not resident in cache, so the timing here will look very different on a warm run. Time this query twice before drawing conclusions from it.",
+    "node": 0,
+    "rule": "cold-cache",
+    "severity": "low",
+    "title": "Reading from disk, not cache",
+  },
+]
+`;
+
+exports[`fixture corpus > cte-and-initplan.json > parses to a stable shape 1`] = `
+[
+  {
+    "actualRows": 1204,
+    "childCount": 3,
+    "depth": 0,
+    "estimateFactor": 1.003,
+    "exclusiveMs": 39.78,
+    "id": 0,
+    "inclusiveMs": 240.114,
+    "label": "Hash Join",
+    "loops": 1,
+    "plannedRows": 1200,
+    "relationship": null,
+    "target": null,
+    "timed": true,
+  },
+  {
+    "actualRows": 1204,
+    "childCount": 0,
+    "depth": 1,
+    "estimateFactor": 1.003,
+    "exclusiveMs": 180.22,
+    "id": 1,
+    "inclusiveMs": 180.22,
+    "label": "CTE Scan",
+    "loops": 1,
+    "plannedRows": 1200,
+    "relationship": "Outer",
+    "target": "cte regional_totals",
+    "timed": true,
+  },
+  {
+    "actualRows": 40,
+    "childCount": 1,
+    "depth": 1,
+    "estimateFactor": 1,
+    "exclusiveMs": 0.784,
+    "id": 2,
+    "inclusiveMs": 12.004,
+    "label": "Hash",
+    "loops": 1,
+    "plannedRows": 40,
+    "relationship": "Inner",
+    "target": null,
+    "timed": true,
+  },
+  {
+    "actualRows": 40,
+    "childCount": 0,
+    "depth": 2,
+    "estimateFactor": 1,
+    "exclusiveMs": 11.22,
+    "id": 3,
+    "inclusiveMs": 11.22,
+    "label": "Seq Scan",
+    "loops": 1,
+    "plannedRows": 40,
+    "relationship": "Outer",
+    "target": "on regions r",
+    "timed": true,
+  },
+  {
+    "actualRows": 1,
+    "childCount": 0,
+    "depth": 1,
+    "estimateFactor": 1,
+    "exclusiveMs": 8.11,
+    "id": 4,
+    "inclusiveMs": 8.11,
+    "label": "Aggregate",
+    "loops": 1,
+    "plannedRows": 1,
+    "relationship": "InitPlan",
+    "target": "InitPlan 1 (returns $0)",
+    "timed": true,
+  },
+]
+`;
+
+exports[`fixture corpus > cte-and-initplan.json > produces stable findings 1`] = `[]`;
+
+exports[`fixture corpus > hash-batches.json > parses to a stable shape 1`] = `
+[
+  {
+    "actualRows": 2004112,
+    "childCount": 2,
+    "depth": 0,
+    "estimateFactor": 1.002,
+    "exclusiveMs": 1405.228,
+    "id": 0,
+    "inclusiveMs": 4820.114,
+    "label": "Hash Join",
+    "loops": 1,
+    "plannedRows": 2000000,
+    "relationship": null,
+    "target": null,
+    "timed": true,
+  },
+  {
+    "actualRows": 2004112,
+    "childCount": 0,
+    "depth": 1,
+    "estimateFactor": 1.002,
+    "exclusiveMs": 1204.882,
+    "id": 1,
+    "inclusiveMs": 1204.882,
+    "label": "Seq Scan",
+    "loops": 1,
+    "plannedRows": 2000000,
+    "relationship": "Outer",
+    "target": "on activity a",
+    "timed": true,
+  },
+  {
+    "actualRows": 4000000,
+    "childCount": 1,
+    "depth": 1,
+    "estimateFactor": 1,
+    "exclusiveMs": 1399.89,
+    "id": 2,
+    "inclusiveMs": 2210.004,
+    "label": "Hash",
+    "loops": 1,
+    "plannedRows": 4000000,
+    "relationship": "Inner",
+    "target": null,
+    "timed": true,
+  },
+  {
+    "actualRows": 4000000,
+    "childCount": 0,
+    "depth": 2,
+    "estimateFactor": 1,
+    "exclusiveMs": 810.114,
+    "id": 3,
+    "inclusiveMs": 810.114,
+    "label": "Seq Scan",
+    "loops": 1,
+    "plannedRows": 4000000,
+    "relationship": "Outer",
+    "target": "on users b",
+    "timed": true,
+  },
+]
+`;
+
+exports[`fixture corpus > hash-batches.json > produces stable findings 1`] = `
+[
+  {
+    "body": "Scanned all 2.0M rows of activity. That is the right choice when the query genuinely needs most of the table, but worth checking whether an index exists for how this query filters or joins.",
+    "node": 1,
+    "rule": "seq-scan-discarding",
+    "severity": "medium",
+    "title": "Full table scan",
+  },
+  {
+    "body": "The hash table did not fit in work_mem, so Postgres split it into 16 batches and spilled most of them to disk. Peak memory used was 4.1 MB. One batch is the goal. Either raise work_mem, or reduce how many rows reach this join by filtering earlier.",
+    "node": 2,
+    "rule": "hash-batches",
+    "severity": "medium",
+    "title": "Hash split into 16 batches",
+  },
+  {
+    "body": "Scanned all 4.0M rows of users. That is the right choice when the query genuinely needs most of the table, but worth checking whether an index exists for how this query filters or joins.",
+    "node": 3,
+    "rule": "seq-scan-discarding",
+    "severity": "medium",
+    "title": "Full table scan",
+  },
+]
+`;
+
+exports[`fixture corpus > healthy-index-lookup.json > parses to a stable shape 1`] = `
+[
+  {
+    "actualRows": 1,
+    "childCount": 0,
+    "depth": 0,
+    "estimateFactor": 1,
+    "exclusiveMs": 0.042,
+    "id": 0,
+    "inclusiveMs": 0.042,
+    "label": "Index Scan",
+    "loops": 1,
+    "plannedRows": 1,
+    "relationship": null,
+    "target": "on users using users_email_key",
+    "timed": true,
+  },
+]
+`;
+
+exports[`fixture corpus > healthy-index-lookup.json > produces stable findings 1`] = `[]`;
+
+exports[`fixture corpus > index-wrong-columns.json > parses to a stable shape 1`] = `
+[
+  {
+    "actualRows": 812,
+    "childCount": 0,
+    "depth": 0,
+    "estimateFactor": 49.261,
+    "exclusiveMs": 620.114,
+    "id": 0,
+    "inclusiveMs": 620.114,
+    "label": "Index Scan",
+    "loops": 1,
+    "plannedRows": 40000,
+    "relationship": null,
+    "target": "on tickets using tickets_project_id_idx",
+    "timed": true,
+  },
+]
+`;
+
+exports[`fixture corpus > index-wrong-columns.json > produces stable findings 1`] = `
+[
+  {
+    "body": "The planner expected 40k rows here and got 812, so far fewer than it predicted. Bad estimates at this level push Postgres toward the wrong join strategy above it, which is often the real cause of the slowdown rather than this node itself. Run ANALYZE on tickets; if the estimate stays wrong, raise the statistics target on the columns involved or add extended statistics if two columns are correlated.",
+    "node": 0,
+    "rule": "row-estimate-off",
+    "severity": "medium",
+    "title": "Row estimate off by 49x",
+  },
+  {
+    "body": "The index found 216k rows, then a filter discarded 215k of them. The index matches part of the query but not the part doing the real narrowing. Adding state to the index would let it reject those rows before fetching them from the heap.",
+    "node": 0,
+    "rule": "index-wrong-columns",
+    "severity": "medium",
+    "title": "Index is on the wrong columns",
+  },
+]
+`;
+
+exports[`fixture corpus > nested-loop-hot.json > parses to a stable shape 1`] = `
+[
+  {
+    "actualRows": 48219,
+    "childCount": 2,
+    "depth": 0,
+    "estimateFactor": 219.177,
+    "exclusiveMs": 305.431,
+    "id": 0,
+    "inclusiveMs": 1842.33,
+    "label": "Nested Loop",
+    "loops": 1,
+    "plannedRows": 220,
+    "relationship": null,
+    "target": null,
+    "timed": true,
+  },
+  {
+    "actualRows": 48219,
+    "childCount": 0,
+    "depth": 1,
+    "estimateFactor": 219.177,
+    "exclusiveMs": 42.11,
+    "id": 1,
+    "inclusiveMs": 42.11,
+    "label": "Seq Scan",
+    "loops": 1,
+    "plannedRows": 220,
+    "relationship": "Outer",
+    "target": "on sessions s",
+    "timed": true,
+  },
+  {
+    "actualRows": 48219,
+    "childCount": 0,
+    "depth": 1,
+    "estimateFactor": 1,
+    "exclusiveMs": 1494.789,
+    "id": 2,
+    "inclusiveMs": 1494.789,
+    "label": "Index Scan",
+    "loops": 48219,
+    "plannedRows": 48219,
+    "relationship": "Inner",
+    "target": "on events e using events_session_id_idx",
+    "timed": true,
+  },
+]
+`;
+
+exports[`fixture corpus > nested-loop-hot.json > produces stable findings 1`] = `
+[
+  {
+    "body": "This nested loop executed its inner side 48k times, costing 1.49 s in total. Nested loops are efficient when the inner side is a quick index lookup and the outer side is small. When the outer side is this large, a hash join is usually cheaper, and Postgres picked this plan because it underestimated the outer row count.",
+    "node": 0,
+    "rule": "nested-loop-hot",
+    "severity": "high",
+    "title": "Inner side ran 48k times",
+  },
+  {
+    "body": "The planner expected 220 rows here and got 48k, so far more than it predicted. Bad estimates at this level push Postgres toward the wrong join strategy above it, which is often the real cause of the slowdown rather than this node itself. Run ANALYZE on sessions; if the estimate stays wrong, raise the statistics target on the columns involved or add extended statistics if two columns are correlated.",
+    "node": 1,
+    "rule": "row-estimate-off",
+    "severity": "high",
+    "title": "Row estimate off by 219x",
+  },
+]
+`;
+
+exports[`fixture corpus > no-analyze.json > parses to a stable shape 1`] = `
+[
+  {
+    "actualRows": null,
+    "childCount": 0,
+    "depth": 0,
+    "estimateFactor": null,
+    "exclusiveMs": null,
+    "id": 0,
+    "inclusiveMs": null,
+    "label": "Index Scan",
+    "loops": 1,
+    "plannedRows": 1,
+    "relationship": null,
+    "target": "on invoices using invoices_pkey",
+    "timed": false,
+  },
+]
+`;
+
+exports[`fixture corpus > no-analyze.json > produces stable findings 1`] = `[]`;
+
+exports[`fixture corpus > parallel-agg.json > parses to a stable shape 1`] = `
+[
+  {
+    "actualRows": 1,
+    "childCount": 1,
+    "depth": 0,
+    "estimateFactor": 1,
+    "exclusiveMs": 0.24,
+    "id": 0,
+    "inclusiveMs": 812.441,
+    "label": "Finalize Aggregate",
+    "loops": 1,
+    "plannedRows": 1,
+    "relationship": null,
+    "target": null,
+    "timed": true,
+  },
+  {
+    "actualRows": 3,
+    "childCount": 1,
+    "depth": 1,
+    "estimateFactor": 1.5,
+    "exclusiveMs": 0,
+    "id": 1,
+    "inclusiveMs": 812.201,
+    "label": "Gather",
+    "loops": 1,
+    "plannedRows": 2,
+    "relationship": "Outer",
+    "target": null,
+    "timed": true,
+  },
+  {
+    "actualRows": 3,
+    "childCount": 1,
+    "depth": 2,
+    "estimateFactor": 1,
+    "exclusiveMs": 483.696,
+    "id": 2,
+    "inclusiveMs": 2406.342,
+    "label": "Partial Aggregate",
+    "loops": 3,
+    "plannedRows": 3,
+    "relationship": "Outer",
+    "target": null,
+    "timed": true,
+  },
+  {
+    "actualRows": 12499998,
+    "childCount": 0,
+    "depth": 3,
+    "estimateFactor": 1,
+    "exclusiveMs": 1922.646,
+    "id": 3,
+    "inclusiveMs": 1922.646,
+    "label": "Parallel Seq Scan",
+    "loops": 3,
+    "plannedRows": 12499998,
+    "relationship": "Outer",
+    "target": "on page_views",
+    "timed": true,
+  },
+]
+`;
+
+exports[`fixture corpus > parallel-agg.json > produces stable findings 1`] = `
+[
+  {
+    "body": "Scanned all 12.5M rows of page_views. That is the right choice when the query genuinely needs most of the table, but worth checking whether an index exists for how this query filters or joins.",
+    "node": 3,
+    "rule": "seq-scan-discarding",
+    "severity": "medium",
+    "title": "Full table scan",
+  },
+  {
+    "body": "Fetched 103k blocks (804 MB) from disk against 44k from shared_buffers. This data is not resident in cache, so the timing here will look very different on a warm run. Time this query twice before drawing conclusions from it.",
+    "node": 3,
+    "rule": "cold-cache",
+    "severity": "low",
+    "title": "Reading from disk, not cache",
+  },
+]
+`;
+
+exports[`fixture corpus > partition-append.json > parses to a stable shape 1`] = `
+[
+  {
+    "actualRows": 91204,
+    "childCount": 3,
+    "depth": 0,
+    "estimateFactor": 1.013,
+    "exclusiveMs": 7.898,
+    "id": 0,
+    "inclusiveMs": 322.114,
+    "label": "Append",
+    "loops": 1,
+    "plannedRows": 90000,
+    "relationship": null,
+    "target": null,
+    "timed": true,
+  },
+  {
+    "actualRows": 30401,
+    "childCount": 0,
+    "depth": 1,
+    "estimateFactor": 1.013,
+    "exclusiveMs": 104.22,
+    "id": 1,
+    "inclusiveMs": 104.22,
+    "label": "Seq Scan",
+    "loops": 1,
+    "plannedRows": 30000,
+    "relationship": "Member",
+    "target": "on readings_2026_01",
+    "timed": true,
+  },
+  {
+    "actualRows": 30402,
+    "childCount": 0,
+    "depth": 1,
+    "estimateFactor": 1.013,
+    "exclusiveMs": 108.114,
+    "id": 2,
+    "inclusiveMs": 108.114,
+    "label": "Seq Scan",
+    "loops": 1,
+    "plannedRows": 30000,
+    "relationship": "Member",
+    "target": "on readings_2026_02",
+    "timed": true,
+  },
+  {
+    "actualRows": 30401,
+    "childCount": 0,
+    "depth": 1,
+    "estimateFactor": 1.013,
+    "exclusiveMs": 101.882,
+    "id": 3,
+    "inclusiveMs": 101.882,
+    "label": "Seq Scan",
+    "loops": 1,
+    "plannedRows": 30000,
+    "relationship": "Member",
+    "target": "on readings_2026_03",
+    "timed": true,
+  },
+]
+`;
+
+exports[`fixture corpus > partition-append.json > produces stable findings 1`] = `[]`;
+
+exports[`fixture corpus > seq-scan-disk-sort.json > parses to a stable shape 1`] = `
+[
+  {
+    "actualRows": 412338,
+    "childCount": 1,
+    "depth": 0,
+    "estimateFactor": 1.019,
+    "exclusiveMs": 200.769,
+    "id": 0,
+    "inclusiveMs": 3180.882,
+    "label": "Sort",
+    "loops": 1,
+    "plannedRows": 420000,
+    "relationship": null,
+    "target": null,
+    "timed": true,
+  },
+  {
+    "actualRows": 412338,
+    "childCount": 2,
+    "depth": 1,
+    "estimateFactor": 1.019,
+    "exclusiveMs": 16.539,
+    "id": 1,
+    "inclusiveMs": 2980.113,
+    "label": "Hash Join",
+    "loops": 1,
+    "plannedRows": 420000,
+    "relationship": "Outer",
+    "target": null,
+    "timed": true,
+  },
+  {
+    "actualRows": 412338,
+    "childCount": 0,
+    "depth": 2,
+    "estimateFactor": 19.635,
+    "exclusiveMs": 2402.554,
+    "id": 2,
+    "inclusiveMs": 2402.554,
+    "label": "Seq Scan",
+    "loops": 1,
+    "plannedRows": 21000,
+    "relationship": "Outer",
+    "target": "on orders o",
+    "timed": true,
+  },
+  {
+    "actualRows": 50000,
+    "childCount": 1,
+    "depth": 2,
+    "estimateFactor": 1,
+    "exclusiveMs": 20.246,
+    "id": 3,
+    "inclusiveMs": 561.02,
+    "label": "Hash",
+    "loops": 1,
+    "plannedRows": 50000,
+    "relationship": "Inner",
+    "target": null,
+    "timed": true,
+  },
+  {
+    "actualRows": 50000,
+    "childCount": 0,
+    "depth": 3,
+    "estimateFactor": 1,
+    "exclusiveMs": 540.774,
+    "id": 4,
+    "inclusiveMs": 540.774,
+    "label": "Seq Scan",
+    "loops": 1,
+    "plannedRows": 50000,
+    "relationship": "Outer",
+    "target": "on customers c",
+    "timed": true,
+  },
+]
+`;
+
+exports[`fixture corpus > seq-scan-disk-sort.json > produces stable findings 1`] = `
+[
+  {
+    "body": "This sort needed 40 MB but work_mem was smaller, so it wrote temporary files and read them back. Raising work_mem above 40 MB for this query keeps the sort in memory. Set it per session or per role rather than globally, since work_mem is allocated per sort and a high global value multiplied across concurrent queries can exhaust memory.",
+    "node": 0,
+    "rule": "sort-spilled",
+    "severity": "high",
+    "title": "Sort spilled to disk",
+  },
+  {
+    "body": "Read 4.2M rows from orders and threw away 3.8M of them, which is 90% wasted work. An index on status and placed_at would let Postgres jump straight to the matching rows instead of walking the whole table.",
+    "node": 2,
+    "rule": "seq-scan-discarding",
+    "severity": "high",
+    "title": "Missing index",
+  },
+  {
+    "body": "The planner expected 21k rows here and got 412k, so far more than it predicted. Bad estimates at this level push Postgres toward the wrong join strategy above it, which is often the real cause of the slowdown rather than this node itself. Run ANALYZE on orders; if the estimate stays wrong, raise the statistics target on the columns involved or add extended statistics if two columns are correlated.",
+    "node": 2,
+    "rule": "row-estimate-off",
+    "severity": "medium",
+    "title": "Row estimate off by 20x",
+  },
+  {
+    "body": "Scanned all 50k rows of customers. That is the right choice when the query genuinely needs most of the table, but worth checking whether an index exists for how this query filters or joins.",
+    "node": 4,
+    "rule": "seq-scan-discarding",
+    "severity": "medium",
+    "title": "Full table scan",
+  },
+  {
+    "body": "Fetched 68k blocks (535 MB) from disk against 2.1k from shared_buffers. This data is not resident in cache, so the timing here will look very different on a warm run. Time this query twice before drawing conclusions from it.",
+    "node": 2,
+    "rule": "cold-cache",
+    "severity": "low",
+    "title": "Reading from disk, not cache",
+  },
+]
+`;
+
+exports[`fixture corpus > with-triggers.json > parses to a stable shape 1`] = `
+[
+  {
+    "actualRows": 0,
+    "childCount": 1,
+    "depth": 0,
+    "estimateFactor": null,
+    "exclusiveMs": 42.106,
+    "id": 0,
+    "inclusiveMs": 42.11,
+    "label": "Insert",
+    "loops": 1,
+    "plannedRows": 0,
+    "relationship": null,
+    "target": "on audit_log",
+    "timed": true,
+  },
+  {
+    "actualRows": 1,
+    "childCount": 0,
+    "depth": 1,
+    "estimateFactor": 1,
+    "exclusiveMs": 0.004,
+    "id": 1,
+    "inclusiveMs": 0.004,
+    "label": "Result",
+    "loops": 1,
+    "plannedRows": 1,
+    "relationship": "Outer",
+    "target": null,
+    "timed": true,
+  },
+]
+`;
+
+exports[`fixture corpus > with-triggers.json > produces stable findings 1`] = `[]`;

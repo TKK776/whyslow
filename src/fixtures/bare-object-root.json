@@ -1,0 +1,12 @@
+{
+  "Plan": {
+    "Node Type": "Seq Scan",
+    "Relation Name": "tiny_lookup",
+    "Actual Total Time": 0.114,
+    "Actual Rows": 12,
+    "Plan Rows": 12,
+    "Actual Loops": 1
+  },
+  "Planning Time": 0.041,
+  "Execution Time": 0.130
+}

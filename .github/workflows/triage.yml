@@ -1,0 +1,33 @@
+name: triage
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  issues: write
+
+jobs:
+  label:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const body = (context.payload.issue.body || '').toLowerCase();
+            const title = (context.payload.issue.title || '').toLowerCase();
+            const text = `${title} ${body}`;
+            const labels = [];
+
+            if (/mysql|mariadb|sqlite|oracle/.test(text)) labels.push('other-database');
+            if (/text format|query plan\n---|cost=/.test(text)) labels.push('text-format');
+            if (/parallel|worker|gather/.test(text)) labels.push('parallel-plans');
+            if (/dark mode|mobile|layout|css|colou?r/.test(text)) labels.push('ui');
+
+            if (labels.length) {
+              await github.rest.issues.addLabels({
+                ...context.repo,
+                issue_number: context.payload.issue.number,
+                labels,
+              });
+            }

@@ -1,0 +1,19 @@
+[
+  {
+    "Plan": {
+      "Node Type": "Index Scan",
+      "Relation Name": "tickets",
+      "Index Name": "tickets_project_id_idx",
+      "Actual Total Time": 620.114,
+      "Actual Rows": 812,
+      "Plan Rows": 40000,
+      "Actual Loops": 1,
+      "Index Cond": "(project_id = 7)",
+      "Filter": "((state = 'open'::text) AND (assignee_id IS NULL))",
+      "Rows Removed by Filter": 214882,
+      "Shared Hit Blocks": 21440
+    },
+    "Planning Time": 0.221,
+    "Execution Time": 620.882
+  }
+]

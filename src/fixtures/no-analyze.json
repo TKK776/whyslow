@@ -1,0 +1,15 @@
+[
+  {
+    "Plan": {
+      "Node Type": "Index Scan",
+      "Relation Name": "invoices",
+      "Index Name": "invoices_pkey",
+      "Startup Cost": 0.42,
+      "Total Cost": 8.44,
+      "Plan Rows": 1,
+      "Plan Width": 220,
+      "Index Cond": "(id = 42)"
+    },
+    "Planning Time": 0.114
+  }
+]

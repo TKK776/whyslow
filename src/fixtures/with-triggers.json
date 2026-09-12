@@ -1,0 +1,28 @@
+[
+  {
+    "Plan": {
+      "Node Type": "ModifyTable",
+      "Operation": "Insert",
+      "Relation Name": "audit_log",
+      "Actual Total Time": 42.110,
+      "Actual Rows": 0,
+      "Plan Rows": 0,
+      "Actual Loops": 1,
+      "Plans": [
+        {
+          "Node Type": "Result",
+          "Parent Relationship": "Outer",
+          "Actual Total Time": 0.004,
+          "Actual Rows": 1,
+          "Plan Rows": 1,
+          "Actual Loops": 1
+        }
+      ]
+    },
+    "Planning Time": 0.062,
+    "Execution Time": 288.442,
+    "Triggers": [
+      { "Trigger Name": "audit_after_insert", "Relation": "audit_log", "Time": 244.110, "Calls": 1 }
+    ]
+  }
+]

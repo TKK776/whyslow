@@ -1,0 +1,32 @@
+[
+  {
+    "Plan": {
+      "Node Type": "Bitmap Heap Scan",
+      "Relation Name": "measurements",
+      "Actual Total Time": 1420.882,
+      "Actual Rows": 812004,
+      "Plan Rows": 800000,
+      "Actual Loops": 1,
+      "Recheck Cond": "(sensor_id = ANY ('{1,2,3}'::integer[]))",
+      "Rows Removed by Index Recheck": 2140882,
+      "Exact Heap Blocks": 1204,
+      "Lossy Heap Blocks": 48220,
+      "Shared Hit Blocks": 8210,
+      "Shared Read Blocks": 44012,
+      "Plans": [
+        {
+          "Node Type": "Bitmap Index Scan",
+          "Parent Relationship": "Outer",
+          "Index Name": "measurements_sensor_id_idx",
+          "Actual Total Time": 88.220,
+          "Actual Rows": 812004,
+          "Plan Rows": 800000,
+          "Actual Loops": 1,
+          "Index Cond": "(sensor_id = ANY ('{1,2,3}'::integer[]))"
+        }
+      ]
+    },
+    "Planning Time": 0.402,
+    "Execution Time": 1462.110
+  }
+]

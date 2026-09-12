@@ -1,0 +1,44 @@
+name: Something read wrong
+description: A plan parsed incorrectly, or the advice was wrong or misleading
+labels: [bug, needs-triage]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Almost every bug here comes down to a plan shape I have not seen before.
+        Without the plan itself I cannot reproduce it, so the field below is required.
+
+  - type: textarea
+    id: plan
+    attributes:
+      label: The plan JSON
+      description: >
+        The full output of EXPLAIN (ANALYZE, BUFFERS, FORMAT JSON). Rename tables
+        and columns first if you need to; the structure is what matters, not the names.
+      render: json
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected, and what happened instead
+      placeholder: |
+        Expected: the sort to be flagged as spilling to disk
+        Got: no findings at all
+    validations:
+      required: true
+
+  - type: input
+    id: pgversion
+    attributes:
+      label: Postgres version
+      placeholder: '16.4'
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        Every plan attached to a confirmed bug becomes a permanent test fixture,
+        so this exact case can never break again.

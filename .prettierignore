@@ -1,0 +1,6 @@
+dist
+node_modules
+src/fixtures
+tests/__snapshots__
+docs/*.png
+docs/*.gif

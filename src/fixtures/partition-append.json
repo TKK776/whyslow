@@ -1,0 +1,45 @@
+[
+  {
+    "Plan": {
+      "Node Type": "Append",
+      "Actual Total Time": 322.114,
+      "Actual Rows": 91204,
+      "Plan Rows": 90000,
+      "Actual Loops": 1,
+      "Plans": [
+        {
+          "Node Type": "Seq Scan",
+          "Parent Relationship": "Member",
+          "Relation Name": "readings_2026_01",
+          "Actual Total Time": 104.220,
+          "Actual Rows": 30401,
+          "Plan Rows": 30000,
+          "Actual Loops": 1,
+          "Shared Hit Blocks": 4210
+        },
+        {
+          "Node Type": "Seq Scan",
+          "Parent Relationship": "Member",
+          "Relation Name": "readings_2026_02",
+          "Actual Total Time": 108.114,
+          "Actual Rows": 30402,
+          "Plan Rows": 30000,
+          "Actual Loops": 1,
+          "Shared Hit Blocks": 4188
+        },
+        {
+          "Node Type": "Seq Scan",
+          "Parent Relationship": "Member",
+          "Relation Name": "readings_2026_03",
+          "Actual Total Time": 101.882,
+          "Actual Rows": 30401,
+          "Plan Rows": 30000,
+          "Actual Loops": 1,
+          "Shared Hit Blocks": 4201
+        }
+      ]
+    },
+    "Planning Time": 2.114,
+    "Execution Time": 330.004
+  }
+]

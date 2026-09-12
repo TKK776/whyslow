@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Text format support, MySQL, and other planned work
+    url: https://github.com/OWNER/whyslow#roadmap
+    about: Check the roadmap before opening a feature request. The common ones are already on it.
+  - name: A question about your own query
+    url: https://www.postgresql.org/list/pgsql-performance/
+    about: The pgsql-performance list is a better place for tuning help than this tracker.
