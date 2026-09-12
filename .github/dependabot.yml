@@ -13,7 +13,9 @@ updates:
         update-types: [patch, minor]
     commit-message:
       prefix: 'chore(deps)'
-
+    ignore:
+      - dependency-name: '*'
+        update-types: ['version-update:semver-major']
   - package-ecosystem: github-actions
     directory: /
     schedule:
