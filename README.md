@@ -41,7 +41,7 @@ SELECT ...;
 ## Running it yourself
 
 ```bash
-git clone https://github.com/OWNER/whyslow
+git clone https://github.com/TKK776/whyslow
 cd whyslow
 npm install
 npm run dev

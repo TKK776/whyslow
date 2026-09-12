@@ -19,7 +19,7 @@ import { analyze } from '../src/diagnostics/rules.js';
 import { parsePlan } from '../src/parser/parse.js';
 import { PlanParseError } from '../src/parser/types.js';
 
-const REPO = process.env.GITHUB_REPOSITORY ?? 'OWNER/whyslow';
+const REPO = process.env.GITHUB_REPOSITORY ?? 'TKK776/whyslow';
 const FIXTURE_DIR = join(import.meta.dirname, '..', 'src', 'fixtures');
 
 async function main(): Promise<void> {

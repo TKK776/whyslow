@@ -1,7 +1,7 @@
 blank_issues_enabled: false
 contact_links:
   - name: Text format support, MySQL, and other planned work
-    url: https://github.com/OWNER/whyslow#roadmap
+    url: https://github.com/TKK776/whyslow#roadmap
     about: Check the roadmap before opening a feature request. The common ones are already on it.
   - name: A question about your own query
     url: https://www.postgresql.org/list/pgsql-performance/
