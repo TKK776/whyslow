@@ -4,7 +4,7 @@ Paste a Postgres query plan and see which step actually took the time.
 
 ![A query plan read by whyslow, with the slowest node marked in red](docs/hero.png)
 
-**[Try it without installing anything](https://whyslow.dev)** · no signup, no upload, runs entirely in your browser.
+**[Try it without installing anything](https://tkk776.github.io/whyslow/)** · no signup, no upload, runs entirely in your browser.
 
 ---
 
@@ -28,6 +28,10 @@ Paste a Postgres query plan and see which step actually took the time.
 | Wrong index        | An index scan that finds rows and then filters most of them away                                                            |
 | Bad join choice    | A nested loop running its inner side tens of thousands of times                                                             |
 | Misleading timings | Heavy disk reads, meaning the numbers will look different on a warm cache                                                   |
+
+## Sharing a plan
+
+After reading a plan, click **Copy link to this plan**. The plan is compressed into the part of the URL after `#`, which browsers never send to a server, so the link carries the whole analysis while the plan still goes nowhere. Paste it into a ticket or a Slack thread and the recipient sees exactly what you saw.
 
 ## Getting a plan to paste
 
@@ -66,7 +70,6 @@ Rounding inside Postgres occasionally makes children sum to slightly more than t
 
 Roughly in order.
 
-- Sharable links, with the plan compressed into the URL fragment so it still never reaches a server
 - Text format input, so you can paste the default `EXPLAIN` output
 - Dark mode
 - More rules: trigger overhead, JIT costing more than it saves, partition pruning that failed

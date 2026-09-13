@@ -1,10 +1,16 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { analyze, findingsByNode, fmtMs, fmtRows } from '../diagnostics/rules.js';
 import type { Finding } from '../diagnostics/rules.js';
 import { parsePlan } from '../parser/parse.js';
 import { PlanParseError, type ParsedPlan, type PlanNode } from '../parser/types.js';
 import EXAMPLE from '../fixtures/seq-scan-disk-sort.json';
+import {
+  ShareTooLargeError,
+  decodeFromUrl,
+  encodeForUrl,
+  isShareSupported,
+} from '../share.js';
 import { C, MONO, SANS, heat, tint } from './tokens.js';
 
 const EXAMPLE_TEXT = JSON.stringify(EXAMPLE, null, 2);
@@ -42,6 +48,7 @@ export default function App() {
   const [analysis, setAnalysis] = useState<Analysis | null>(null);
   const [error, setError] = useState<{ message: string; hint: string } | null>(null);
   const [open, setOpen] = useState<Set<number>>(new Set());
+  const [share, setShare] = useState<ShareState>({ kind: 'idle' });
 
   const read = useCallback((source: string) => {
     try {
@@ -49,6 +56,8 @@ export default function App() {
       setAnalysis(next);
       setError(null);
       setOpen(new Set(next.slowest ? [next.slowest.id] : []));
+      setShare({ kind: 'idle' });
+      void writeFragment(source, setShare);
     } catch (e) {
       setAnalysis(null);
       setError(
@@ -72,6 +81,40 @@ export default function App() {
     setAnalysis(null);
     setError(null);
     setText('');
+    setShare({ kind: 'idle' });
+    if (window.location.hash) {
+      history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
+  }, []);
+
+  // A shared link carries the plan in the fragment. Read it once on load.
+  useEffect(() => {
+    if (!window.location.hash || !isShareSupported()) return;
+    let cancelled = false;
+    void decodeFromUrl(window.location.hash).then((decoded) => {
+      if (cancelled || decoded === null) return;
+      setText(decoded);
+      read(decoded);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [read]);
+
+  const copyLink = useCallback(async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      setShare({ kind: 'copied' });
+      setTimeout(
+        () => setShare((s) => (s.kind === 'copied' ? { kind: 'ready' } : s)),
+        1800,
+      );
+    } catch {
+      setShare({
+        kind: 'failed',
+        reason: 'Clipboard access was blocked. Copy the address bar instead.',
+      });
+    }
   }, []);
 
   return (
@@ -94,7 +137,14 @@ export default function App() {
         {error && <ErrorBox message={error.message} hint={error.hint} />}
 
         {analysis && (
-          <Result analysis={analysis} open={open} onToggle={toggle} onReset={reset} />
+          <Result
+            analysis={analysis}
+            open={open}
+            onToggle={toggle}
+            onReset={reset}
+            share={share}
+            onCopyLink={copyLink}
+          />
         )}
       </div>
     </div>
@@ -163,11 +213,15 @@ function Result({
   open,
   onToggle,
   onReset,
+  share,
+  onCopyLink,
 }: {
   analysis: Analysis;
   open: Set<number>;
   onToggle: (id: number) => void;
   onReset: () => void;
+  share: ShareState;
+  onCopyLink: () => void;
 }) {
   const { plan } = analysis;
 
@@ -200,10 +254,68 @@ function Result({
         ))}
       </div>
 
-      <button onClick={onReset} style={{ ...S.secondary, marginTop: 16 }}>
-        Read another plan
-      </button>
+      <div style={S.toolbar}>
+        <button onClick={onReset} style={S.secondary}>
+          Read another plan
+        </button>
+        <ShareButton share={share} onCopyLink={onCopyLink} />
+      </div>
     </>
+  );
+}
+
+type ShareState =
+  | { kind: 'idle' }
+  | { kind: 'ready' }
+  | { kind: 'copied' }
+  | { kind: 'failed'; reason: string };
+
+async function writeFragment(
+  source: string,
+  setShare: (s: ShareState) => void,
+): Promise<void> {
+  if (!isShareSupported()) {
+    setShare({ kind: 'failed', reason: 'This browser cannot build share links.' });
+    return;
+  }
+  try {
+    const fragment = await encodeForUrl(source);
+    history.replaceState(
+      null,
+      '',
+      `${window.location.pathname}${window.location.search}#${fragment}`,
+    );
+    setShare({ kind: 'ready' });
+  } catch (e) {
+    if (e instanceof ShareTooLargeError) {
+      setShare({ kind: 'failed', reason: 'Too large to share by link.' });
+    } else {
+      setShare({ kind: 'failed', reason: 'Could not build a share link.' });
+    }
+  }
+}
+
+function ShareButton({
+  share,
+  onCopyLink,
+}: {
+  share: ShareState;
+  onCopyLink: () => void;
+}) {
+  if (share.kind === 'idle') return null;
+
+  if (share.kind === 'failed') {
+    return (
+      <span style={S.shareNote} title={share.reason}>
+        {share.reason}
+      </span>
+    );
+  }
+
+  return (
+    <button onClick={onCopyLink} style={S.secondary} data-share>
+      {share.kind === 'copied' ? 'Link copied' : 'Copy link to this plan'}
+    </button>
   );
 }
 
@@ -561,6 +673,14 @@ const S = {
     color: C.inkSoft,
   },
   detail: { padding: '4px 14px 18px', background: C.paper },
+  toolbar: {
+    display: 'flex',
+    gap: 10,
+    alignItems: 'center',
+    marginTop: 16,
+    flexWrap: 'wrap' as const,
+  },
+  shareNote: { fontSize: 12, color: C.inkFaint },
   stats: {
     display: 'flex',
     gap: 26,
