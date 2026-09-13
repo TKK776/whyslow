@@ -1,6 +1,6 @@
 {
   "name": "whyslow",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
   "description": "Paste a Postgres EXPLAIN plan and see which step is actually slow.",
